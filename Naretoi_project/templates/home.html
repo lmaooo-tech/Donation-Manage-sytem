@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Naretoi Charity Organisation{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-red-600 to-red-800 text-white py-20 px-4">
+    <div class="max-w-7xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+            <i class="fas fa-heart mr-3"></i>Naretoi Charity Organisation
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 text-red-100">
+            Empowering Communities in Maasailand
+        </p>
+        <p class="text-lg mb-8 max-w-2xl mx-auto text-red-100">
+            Together, we're building a brighter future through education, healthcare, livelihood programs, and access to clean water.
+        </p>
+        <a href="{% url 'core:donate' %}" class="bg-white text-red-600 px-8 py-3 rounded-lg font-bold text-lg hover:bg-gray-100 transition inline-block">
+            <i class="fas fa-hand-holding-heart mr-2"></i>Donate Today
+        </a>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-16 px-4 bg-white">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-800">
+            About Naretoi
+        </h2>
+        <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            Located in the heart of Maasailand, Kenya, Naretoi Charity Organisation is dedicated to sustainable community development.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Mission -->
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-lg border-l-4 border-blue-600">
+                <i class="fas fa-bullseye text-blue-600 text-4xl mb-4"></i>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Our Mission</h3>
+                <p class="text-gray-700">
+                    To uplift communities in Maasailand through education, health, livelihood support, and ensuring access to clean water resources.
+                </p>
+            </div>
+            
+            <!-- Vision -->
+            <div class="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-lg border-l-4 border-green-600">
+                <i class="fas fa-eye text-green-600 text-4xl mb-4"></i>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Our Vision</h3>
+                <p class="text-gray-700">
+                    A thriving Maasailand community where every individual has access to quality education, healthcare, economic opportunities, and clean water.
+                </p>
+            </div>
+            
+            <!-- Values -->
+            <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-lg border-l-4 border-purple-600">
+                <i class="fas fa-heart text-purple-600 text-4xl mb-4"></i>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Our Values</h3>
+                <p class="text-gray-700">
+                    Compassion, integrity, accountability, and community-driven solutions guide everything we do.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Support Categories Section -->
+<section id="categories" class="py-16 px-4 bg-gray-100">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-800">
+            How We Support Communities
+        </h2>
+        <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            Your donation directly supports one or more of these vital areas:
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for category in categories %}
+            <!-- Category Card -->
+            <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition p-6 text-center">
+                <div class="text-red-600 text-5xl mb-4">
+                    <i class="fas {{ category.icon }}"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">{{ category.name }}</h3>
+                <p class="text-gray-600 text-sm mb-4">{{ category.description|truncatewords:20 }}</p>
+                <div class="text-sm font-semibold text-red-600">
+                    <i class="fas fa-dollar-sign"></i> 
+                    Total Raised: KES {{ category.total_donations|floatformat:0 }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="py-16 px-4 bg-white">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
+            Our Impact
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Total Donations -->
+            <div class="text-center">
+                <div class="text-5xl font-bold text-red-600 mb-2">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <p class="text-3xl font-bold text-gray-800 mb-2">
+                    {{ total_donations|floatformat:0 }}
+                </p>
+                <p class="text-gray-600">
+                    KES Donated
+                </p>
+            </div>
+            
+            <!-- Total Donations Count -->
+            <div class="text-center">
+                <div class="text-5xl font-bold text-green-600 mb-2">
+                    <i class="fas fa-users"></i>
+                </div>
+                <p class="text-3xl font-bold text-gray-800 mb-2">
+                    {{ total_donors|default:"0" }}
+                </p>
+                <p class="text-gray-600">
+                    Donors
+                </p>
+            </div>
+            
+            <!-- Active Categories -->
+            <div class="text-center">
+                <div class="text-5xl font-bold text-blue-600 mb-2">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <p class="text-3xl font-bold text-gray-800 mb-2">
+                    {{ categories|length }}
+                </p>
+                <p class="text-gray-600">
+                    Support Areas
+                </p>
+            </div>
+            
+            <!-- Beneficiaries -->
+            <div class="text-center">
+                <div class="text-5xl font-bold text-purple-600 mb-2">
+                    <i class="fas fa-smile"></i>
+                </div>
+                <p class="text-3xl font-bold text-gray-800 mb-2">
+                    5,000+
+                </p>
+                <p class="text-gray-600">
+                    Lives Improved
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="bg-gradient-to-r from-red-600 to-red-800 text-white py-16 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Make a Difference Today
+        </h2>
+        <p class="text-xl mb-8 text-red-100">
+            Your contribution, no matter the size, directly helps communities in Maasailand thrive and grow.
+        </p>
+        <a href="{% url 'core:donate' %}" class="bg-white text-red-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition inline-block">
+            <i class="fas fa-hand-holding-heart mr-2"></i>Start Donating
+        </a>
+    </div>
+</section>
+
+{% endblock %}

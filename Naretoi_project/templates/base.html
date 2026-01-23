@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Naretoi Charity Organisation{% endblock %}</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/Brand -->
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-heart text-red-600 text-2xl"></i>
+                    <a href="{% url 'core:home' %}" class="text-xl font-bold text-gray-800 hover:text-red-600 transition">
+                        Naretoi
+                    </a>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="{% url 'core:home' %}" class="text-gray-600 hover:text-red-600 transition font-medium">
+                        Home
+                    </a>
+                    <a href="#about" class="text-gray-600 hover:text-red-600 transition font-medium">
+                        About
+                    </a>
+                    <a href="#categories" class="text-gray-600 hover:text-red-600 transition font-medium">
+                        Support Us
+                    </a>
+                    <a href="{% url 'core:donate' %}" class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition font-medium">
+                        Donate Now
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-red-600 text-2xl">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4 space-y-2">
+                <a href="{% url 'core:home' %}" class="block px-4 py-2 text-gray-600 hover:text-red-600 hover:bg-gray-100 rounded">Home</a>
+                <a href="#about" class="block px-4 py-2 text-gray-600 hover:text-red-600 hover:bg-gray-100 rounded">About</a>
+                <a href="#categories" class="block px-4 py-2 text-gray-600 hover:text-red-600 hover:bg-gray-100 rounded">Support Us</a>
+                <a href="{% url 'core:donate' %}" class="block px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Donate Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- About Section -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4 flex items-center space-x-2">
+                        <i class="fas fa-heart text-red-500"></i>
+                        <span>Naretoi</span>
+                    </h3>
+                    <p class="text-gray-400 text-sm">
+                        Empowering communities in Maasailand through education, healthcare, livelihood programs, and access to water.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="{% url 'core:home' %}" class="hover:text-white transition">Home</a></li>
+                        <li><a href="#about" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="{% url 'core:donate' %}" class="hover:text-white transition">Donate</a></li>
+                        <li><a href="#contact" class="hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Support Categories -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Our Impact</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white transition">Education Support</a></li>
+                        <li><a href="#" class="hover:text-white transition">Healthcare Initiatives</a></li>
+                        <li><a href="#" class="hover:text-white transition">Livelihood Programs</a></li>
+                        <li><a href="#" class="hover:text-white transition">Access to Water</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-map-marker-alt text-red-500"></i>
+                            <span>Kajiado, Kenya</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-envelope text-red-500"></i>
+                            <span><a href="mailto:info@naretoi.org" class="hover:text-white transition">ocoijosephat@gmail.com</a></span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-phone text-red-500"></i>
+                            <span><a href="tel:+254712345678" class="hover:text-white transition">+254 740664644</a></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Social Media & Copyright -->
+            <div class="border-t border-gray-700 pt-8 flex justify-between items-center flex-col md:flex-row space-y-4 md:space-y-0">
+                <p class="text-gray-400 text-sm">
+                    &copy; 2026 Naretoi Charity Organisation. All rights reserved.
+                </p>
+                <div class="flex space-x-4">
+                    <!-- Twitter - Add your Twitter URL here -->
+                    <a href="https://x.com/Osoi_ke" target="_blank" rel="noopener noreferrer" 
+                       class="text-gray-400 hover:text-red-500 transition text-lg" title="Follow us on Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <!-- LinkedIn - Add your LinkedIn URL here -->
+                    <a href="https://www.linkedin.com/in/josphat-osoi-m-95a765247/" target="_blank" rel="noopener noreferrer" 
+                       class="text-gray-400 hover:text-red-500 transition text-lg" title="Connect on LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <!-- Reddit - Add your Reddit URL here -->
+                    <a href="https://www.reddit.com/user/Western_Towel_7154/" target="_blank" rel="noopener noreferrer" 
+                       class="text-gray-400 hover:text-red-500 transition text-lg" title="Join us on Reddit">
+                        <i class="fab fa-reddit"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

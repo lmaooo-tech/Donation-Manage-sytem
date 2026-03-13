@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
+from django.conf import settings
 from donations.models import SupportCategory, Donation
 
 
@@ -49,6 +50,7 @@ def donate_view(request):
     
     context = {
         'categories': categories,
+        'payment_integration_enabled': settings.PAYMENT_INTEGRATION_ENABLED,
     }
     
     return render(request, 'donate.html', context)

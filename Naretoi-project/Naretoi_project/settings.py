@@ -169,6 +169,9 @@ REST_FRAMEWORK = {
     ],
 }
 
+# Feature flags
+PAYMENT_INTEGRATION_ENABLED = os.getenv('PAYMENT_INTEGRATION_ENABLED', 'False') == 'True'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/6.0/ref/settings/#default-auto-field
 

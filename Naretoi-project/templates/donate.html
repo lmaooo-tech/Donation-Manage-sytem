@@ -23,11 +23,15 @@
         <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mb-8 rounded">
             <p class="text-blue-800">
                 <i class="fas fa-info-circle mr-2"></i>
+                {% if payment_integration_enabled %}
                 <strong>Choose your payment method:</strong> We accept donations via PayPal (international) or M-Pesa (local Kenya).
+                {% else %}
+                <strong>Coming Soon:</strong> Online payment options are being finalized. You can still share your donation intent below.
+                {% endif %}
             </p>
         </div>
 
-        <form id="donationForm" class="bg-white rounded-lg shadow-lg p-8">
+        <form id="donationForm" data-payment-enabled="{{ payment_integration_enabled|yesno:'true,false' }}" class="bg-white rounded-lg shadow-lg p-8">
             <!-- Step 1: Support Category Selection -->
             <div class="form-section mb-8 pb-8 border-b-2">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
@@ -187,9 +191,10 @@
             <div class="form-section mb-8 pb-8 border-b-2">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                     <span class="flex items-center justify-center w-10 h-10 rounded-full bg-red-600 text-white mr-3 font-bold">4</span>
-                    Payment Method
+                    {% if payment_integration_enabled %}Payment Method{% else %}Payment Integration Status{% endif %}
                 </h2>
-                
+
+                {% if payment_integration_enabled %}
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <!-- PayPal Option -->
                     <label class="payment-option cursor-pointer">
@@ -200,7 +205,7 @@
                             <p class="text-sm text-gray-600 mt-2">International donations</p>
                         </div>
                     </label>
-                    
+
                     <!-- M-Pesa Option -->
                     <label class="payment-option cursor-pointer">
                         <input type="radio" name="payment_method" value="mpesa" class="hidden" required>
@@ -211,6 +216,17 @@
                         </div>
                     </label>
                 </div>
+                {% else %}
+                <div class="bg-amber-50 border border-amber-300 rounded-lg p-6">
+                    <div class="flex items-start">
+                        <i class="fas fa-clock text-amber-600 text-2xl mr-3 mt-1"></i>
+                        <div>
+                            <h3 class="text-lg font-bold text-amber-900">Payment Methods Coming Soon</h3>
+                            <p class="text-amber-800 mt-2">PayPal and M-Pesa integration is currently under setup. We will enable direct online donations soon.</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
             </div>
 
             <!-- Optional Message -->
@@ -248,7 +264,7 @@
             <!-- Submit Button -->
             <div class="flex flex-col md:flex-row gap-4">
                 <button type="submit" class="flex-1 bg-red-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-red-700 transition">
-                    <i class="fas fa-hand-holding-heart mr-2"></i>Proceed to Payment
+                    <i class="fas fa-hand-holding-heart mr-2"></i>{% if payment_integration_enabled %}Proceed to Payment{% else %}Submit Donation Interest{% endif %}
                 </button>
                 <a href="{% url 'core:home' %}" class="flex-1 border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg font-bold text-lg hover:border-gray-400 transition text-center">
                     <i class="fas fa-arrow-left mr-2"></i>Back to Home
@@ -320,10 +336,15 @@
     document.getElementById('donationForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(this);
+        const paymentEnabled = this.dataset.paymentEnabled === 'true';
         
         // Here we'll integrate payment processing later
         console.log('Form submitted with data:', Object.fromEntries(formData));
-        alert('Thank you for your interest! Payment processing coming soon.');
+        if (paymentEnabled) {
+            alert('Payment integration is enabled. Gateway connection is the next implementation step.');
+        } else {
+            alert('Thank you for your support. Online payment options are coming soon.');
+        }
     });
 </script>
 
